@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Spatial Price Card — Neumorphic UI (v2.1.4)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+:root{
+  /* Duotone palette */
+  --terra:#9F5434; /* terracotta */
+  --sand:#EDE9D0; /* yellow sand */
+
+  /* Surfaces */
+  --bg:var(--sand);
+  --card:#F6F2E6; /* base sand surface */
+  --card-hi:#FCF9F0; /* top highlight for subtle gradients */
+  --card-lo:#F1ECDF; /* bottom tone for subtle gradients */
+
+  /* Text */
+  --text:#7B3F2A; /* deeper terracotta for contrast */
+  --muted:#B97C62; /* softened terracotta for secondary text */
+
+  /* Shadows (ambient + key) */
+  --shadow-ambient:0 12px 24px rgba(159,84,52,.08);
+  --shadow-key:0 2px 6px rgba(159,84,52,.10);
+  --shadow-inset-dark:inset 2px 2px 3px rgba(159,84,52,.08);
+  --shadow-inset-light:inset -2px -2px 3px rgba(255,255,255,.85);
+
+  /* Accents */
+  --accent:var(--terra);
+  --danger:#8E452F; /* terracotta deep */
+  --success:#9F5434; /* keep within duotone */
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    /* Keep the same yellow-sand look in dark mode for consistency */
+    --bg:var(--sand);
+    --card:#F7F3E8;
+    --card-hi:#FCFAF4;
+    --card-lo:#EEE7D7;
+    --text:#7B3F2A;
+    --muted:#B97C62;
+    --shadow-ambient:0 10px 20px rgba(159,84,52,.07);
+    --shadow-key:0 1px 4px rgba(159,84,52,.10);
+    --shadow-inset-dark:inset 1.5px 1.5px 3px rgba(159,84,52,.08);
+    --shadow-inset-light:inset -1.5px -1.5px 3px rgba(255,255,255,.85);
+    --accent:var(--terra);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--card-hi) 0%, var(--bg) 40%, var(--bg) 100%);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
+
+main{width:100%;max-width:1100px;margin:0 auto;flex:1;display:flex;flex-direction:column;gap:1rem}
+.neo-card{background:linear-gradient(180deg,var(--card-hi),var(--card-lo));border-radius:20px;box-shadow:var(--shadow-ambient),var(--shadow-key);transition:transform .12s ease, box-shadow .18s ease}
+.neo-card:hover{transform:translateY(-1px)}
+.neo-inset{background:linear-gradient(180deg,var(--card-hi),var(--card-lo));border-radius:14px;box-shadow:var(--shadow-inset-dark),var(--shadow-inset-light)}
+/* Buttons: terracotta with soft elevation */
+button,.btn{
+  font-family:inherit;background:linear-gradient(180deg,#A85E3F,#8E452F);border:none;border-radius:14px;
+  box-shadow:0 10px 18px rgba(159,84,52,.24), 0 3px 6px rgba(159,84,52,.18);
+  padding:.6rem 1rem;font-size:1rem;color:var(--sand);cursor:pointer;transition:transform .06s ease, box-shadow .12s ease, filter .12s ease
+}
+button:hover,.btn:hover{filter:brightness(1.02);box-shadow:0 12px 22px rgba(159,84,52,.28), 0 4px 8px rgba(159,84,52,.20)}
+button:active,.btn:active{transform:translateY(1px);box-shadow:inset 0 2px 3px rgba(0,0,0,.08)}
+select,input[type="search"]{
+  font-family:inherit;background:linear-gradient(180deg,var(--card-hi),var(--card));border:none;border-radius:14px;
+  box-shadow:0 1px 2px rgba(159,84,52,.06), 0 8px 16px rgba(159,84,52,.04);
+  padding:.6rem 1rem;font-size:1rem;color:var(--text);cursor:text;transition:transform .06s ease, box-shadow .12s ease
+}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid rgba(159,84,52,.35);outline-offset:2px;filter:brightness(1.01)}
+select,input[type="search"]{cursor:text}
+.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:1rem;margin:1rem}
+.toolbar .spacer{flex:1}
+#dropzone{display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;padding:1.5rem 1.25rem;min-height:200px;margin:0 1rem 1.5rem;color:var(--muted);border-radius:24px;background:linear-gradient(180deg,var(--card-hi),var(--card-lo));box-shadow:var(--shadow-inset-dark),var(--shadow-inset-light);font-size:1.08rem;letter-spacing:.2px}
+#dropzone.dragover{box-shadow:var(--shadow-inset-dark),var(--shadow-inset-light),0 0 0 4px rgba(159,84,52,.15)}
+.preview{display:flex;justify-content:center;align-items:center;width:-moz-fit-content;width:fit-content;max-width:calc(100% - 2rem);margin:0 auto 1.25rem;padding:1rem;border-radius:20px;background:linear-gradient(180deg,var(--card-hi),var(--card-lo));box-shadow:var(--shadow-ambient),var(--shadow-key)}
+.preview img{display:block;max-width:100%;max-height:70vh;height:auto;border-radius:12px}
+.preview .meta{font-size:.9rem}
+#rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:1.25rem;margin:0 1rem 1.25rem;padding:0;align-items:start}
+.room-card{padding:1rem;border-radius:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;grid-template-rows:auto auto auto auto;column-gap:2.5rem;row-gap:.9rem}
+.room-title{grid-column:1 / span 2;margin:.25rem 0 .25rem 0;font-size:1.1rem;font-weight:700;line-height:1.2}
+.room-actions{grid-column:3 / 4;justify-self:end;display:flex;gap:.4rem}
+.icon-btn{padding:.45rem .6rem;border-radius:12px}
+.room-input{width:100%;min-width:0;padding:.55rem .7rem;border:none;border-radius:12px;color:var(--text);background:linear-gradient(180deg,var(--card-hi),var(--card));box-shadow:inset 0 1px 2px rgba(159,84,52,.10), inset 0 -1px 2px rgba(255,255,255,.85)}
+.field-group{display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.field-label{font-size:.85rem;color:var(--muted);padding-left:.2rem}
+.inline-hint{grid-column:1 / -1;font-size:.85rem;color:#9ca3af;min-height:1em}
+.room-meta{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;color:var(--muted);font-size:.9rem}
+.badge{padding:.25rem .6rem;border-radius:12px;background:linear-gradient(180deg,var(--card),var(--card-lo));box-shadow:0 1px 1px rgba(159,84,52,.08), inset 0 1px 0 rgba(255,255,255,.8)}
+footer{text-align:center;font-size:.9rem;padding:1rem;margin:1rem;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:.7rem 1rem;border-radius:12px}
+.toast-info{background:var(--sand);color:var(--terra)}
+.toast-danger{background:var(--danger);color:var(--sand)}
+.toast-success{background:var(--sand);color:var(--terra)}
+.hidden{display:none !important}
+/* loading overlay */
+.loading{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);padding:0.9rem 1.1rem;border-radius:16px;display:flex;align-items:center;gap:.75rem;z-index:1000}
+.spinner{width:22px;height:22px;border:3px solid rgba(0,0,0,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-weight:600;color:var(--text)}
+
+
+</style>
+</head>
+<body data-upload-webhook="https://n8n.kamalpriyank.com/webhook-test/upload-floor-plan">
+<main>
+  <div class="toolbar neo-card" role="toolbar" aria-label="Spatial toolbar">
+    <button id="addRoomBtn" aria-label="Add a new room">Add Room</button>
+    <button id="sortBtn" aria-label="Sort rooms">Sort A–Z</button>
+
+    <select id="unitSwitch" aria-label="Units">
+      <option value="ft">Feet</option><option value="m">Meters</option>
+    </select>
+
+    <input id="search" class="hidden" type="search" placeholder="Search rooms…" aria-label="Search rooms" />
+
+    <div class="spacer"></div>
+
+    <button id="resetBtn" aria-label="Reset" title="Clear all">Reset</button>
+
+    <div aria-live="polite" class="small">Total Area: <strong><span id="totalArea">0</span> <span id="unitLabel">ft²</span></strong> · <span id="roomCount">0</span> rooms</div>
+    <button id="proceedBtn" disabled aria-disabled="true" title="Send to webhook">Proceed</button>
+  </div>
+
+  <div id="dropzone" class="neo-inset" role="button" tabindex="0" aria-label="Drop your floor plan or click to upload">Drop your floor plan or click to upload</div>
+  <input type="file" id="fileInput" accept="image/*,application/pdf" class="hidden" />
+
+  
+  <div id="preview" class="preview neo-card hidden" aria-live="polite"></div>
+
+  <div id="rooms" aria-live="polite"></div>
+
+  <footer class="neo-card">PCE v2.1.4</footer>
+</main>
+
+<div id="toast" class="toast toast-info neo-card hidden" role="status" aria-live="polite"></div>
+<div id="loading" class="loading neo-card hidden" role="status" aria-live="assertive">
+  <div class="spinner" aria-hidden="true"></div>
+  <div class="loading-text">Extracting dimensions…</div>
+</div>
+
+<script>
+/** --- Config (hidden URL) --- **/
+const DEFAULT_UPLOAD_WEBHOOK = "https://n8n.kamalpriyank.com/webhook-test/upload-floor-plan";
+// Override without exposing in UI:
+// 1) window.SPATIAL_UPLOAD_WEBHOOK = "https://your-webhook" (define before this script)
+// 2) <body data-upload-webhook="https://your-webhook">
+let UPLOAD_WEBHOOK = (window.SPATIAL_UPLOAD_WEBHOOK || document.body?.dataset?.uploadWebhook || DEFAULT_UPLOAD_WEBHOOK);
+const PROCEED_WEBHOOK = ""; // optional, currently unused
+
+/** --- State --- **/
+let state = { unit: 'ft', rooms: [], sortAsc: true, sourceName: null, sourceMeta: null };
+
+/** --- Utils --- **/
+const byId=(id)=>document.getElementById(id);
+function toast(msg, variant='info', ms=2800){
+  const t=byId('toast'); if(!t) return;
+  t.textContent=msg; t.classList.remove('hidden');
+  t.className = `toast neo-card toast-${variant}`;
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>{ t.classList.add('hidden'); }, ms);
+}
+function setLoading(on, text='Extracting dimensions…'){
+  const l=byId('loading'); if(!l) return; if(text) l.querySelector('.loading-text').textContent=text; l.classList.toggle('hidden', !on); document.body.setAttribute('aria-busy', on?'true':'false');
+}
+function showHow(show){ const hw=byId('howItWorks'); if(!hw) return; hw.classList.toggle('hidden', !show); }
+function clampNonNeg(n){ const x=Number(n); if(!Number.isFinite(x)) return null; return x<0?0:x; }
+function fmt(n,dp=2){ return Number.isFinite(n)?Number(n).toFixed(dp):'' }
+function round1(n){
+  if (n === null || n === undefined || n === '') return null;
+  const num = Number(n);
+  return Number.isFinite(num) ? +num.toFixed(1) : null;
+}
+function fmt1(n){ if(n==null || !Number.isFinite(Number(n))) return ''; const x=Number(n); return Number.isInteger(x) ? String(x) : x.toFixed(1); }
+function parseFeetInches(v){
+  if (v == null || v === '') return null;
+  if (typeof v === 'number' && Number.isFinite(v)) return v < 0 ? null : v;
+  const s = String(v).trim().toLowerCase();
+  if (/^-?\d+(?:\.\d+)?$/.test(s)) { const num=Number(s); return num<0?null:num; }
+  const norm = s.replace(/feet|foot|ft/g, "'").replace(/inches|inch|in/g, '"').replace(/\s+/g,' ').trim();
+  const re = /^(\d+(?:\.\d+)?)\s*'\s*(?:(\d+(?:\.\d+)?)\s*\")?$|^(\d+(?:\.\d+)?)\s*\"$|^(\d+(?:\.\d+)?)\s*'$/;
+  const m = norm.match(re); if(!m) return null;
+  let feet = m[1] != null ? Number(m[1]) : (m[4] != null ? Number(m[4]) : 0);
+  let inches = m[2] != null ? Number(m[2]) : (m[3] != null ? Number(m[3]) : 0);
+  if(!Number.isFinite(feet) || !Number.isFinite(inches) || feet < 0 || inches < 0) return null;
+  if(inches >= 12){ feet += Math.floor(inches/12); inches = inches % 12; }
+  return feet + inches/12;
+}
+const ftToM = (ft)=> ft * 0.3048; const mToFt = (m)=> m * 3.280839895013123;
+
+function updateTotals(){
+  let sum=0; for(const r of state.rooms){ if(r.length!=null && r.width!=null) sum+= r.length*r.width; }
+  const totalEl=byId('totalArea'), unitLabel=byId('unitLabel'), roomCount=byId('roomCount');
+  if(totalEl) totalEl.textContent = fmt(sum,2);
+  if(unitLabel) unitLabel.textContent = state.unit==='ft' ? 'ft²' : 'm²';
+  if(roomCount) roomCount.textContent = String(state.rooms.length);
+}
+function validateProceed(){ const btn=byId('proceedBtn'); if(!btn) return; const ok = state.rooms.length>0 && state.rooms.every(r => (r.room && r.room.trim().length>0) && ((r.length!=null && r.length>=0) || (r.width!=null && r.width>=0))); btn.disabled=!ok; btn.setAttribute('aria-disabled', String(!ok)); }
+
+/** --- Data normalization helpers must appear BEFORE tests --- **/
+function guessUnit(u){
+  if(!u) return null; const s=String(u).toLowerCase();
+  if (s.startsWith('m')) return 'm';
+  if (s.startsWith('ft') || s==='feet' || s==='foot' || s==='ft') return 'ft';
+  return null;
+}
+function numclean(v){ if (v==null) return null; const n = Number(String(v).replace(/[^0-9.\-]/g,'')); return Number.isFinite(n) ? n : null; }
+function deriveRooms(payload){
+  try{
+    const uTop = guessUnit(payload?.unit || payload?.units || payload?.meta?.unit);
+    let data = null;
+    if (Array.isArray(payload)) data = payload;
+    else if (Array.isArray(payload?.rooms)) data = payload.rooms;
+    else if (Array.isArray(payload?.data?.rooms)) data = payload.data.rooms;
+    else if (Array.isArray(payload?.data)) data = payload.data;
+    else if (Array.isArray(payload?.result)) data = payload.result;
+    else if (Array.isArray(payload?.output)) data = payload.output;
+    if(!data) return null;
+    return data.map(it => {
+      const unitItem = guessUnit(it?.unit || it?.units) || uTop || state.unit;
+      const roomName = it.room ?? it.name ?? it.label ?? it.title ?? '';
+      const L = it.length ?? it.len ?? it.l ?? it.long ?? it.depth ?? it.length_ft ?? it.length_m ?? null;
+      const W = it.width  ?? it.w   ?? it.breadth ?? it.b ?? it.width_ft  ?? it.width_m  ?? null;
+      let lengthVal = null, widthVal = null;
+      if (state.unit === 'ft'){
+        if (unitItem === 'm'){
+          const l = numclean(L); const w = numclean(W);
+          lengthVal = l==null ? null : round1(mToFt(l));
+          widthVal  = w==null ? null : round1(mToFt(w));
+        } else {
+          lengthVal = L==null ? null : round1(parseFeetInches(L));
+          widthVal  = W==null ? null : round1(parseFeetInches(W));
+        }
+      } else { // state.unit === 'm'
+        if (unitItem === 'ft'){
+          const l = L==null ? null : parseFeetInches(L);
+          const w = W==null ? null : parseFeetInches(W);
+          lengthVal = l==null ? null : round1(ftToM(l));
+          widthVal  = w==null ? null : round1(ftToM(w));
+        } else {
+          const l = numclean(L); const w = numclean(W);
+          lengthVal = l==null ? null : round1(+l);
+          widthVal  = w==null ? null : round1(+w);
+        }
+      }
+      // Treat zero length as "no length"
+      if (lengthVal === 0) lengthVal = null;
+      return { room: roomName, length: lengthVal, width: widthVal, unit: state.unit };
+    });
+  }catch(err){ console.warn('deriveRooms failed', err); return null; }
+}
+
+// Reset everything to the initial state shown on first load
+function resetApp(){
+  try{ setLoading(false); }catch{}
+  state = { unit:'ft', rooms:[], sortAsc:true, sourceName:null, sourceMeta:null };
+  const unitSel = byId('unitSwitch'); if(unitSel) unitSel.value = 'ft';
+  const search = byId('search'); if(search){ search.value=''; search.classList.add('hidden'); }
+  const preview = byId('preview'); if(preview){ preview.innerHTML=''; preview.classList.add('hidden'); }
+  const fi = byId('fileInput'); if(fi) fi.value = '';
+  const dz = byId('dropzone'); if(dz) dz.classList.remove('dragover');
+  const sortBtn = byId('sortBtn'); if(sortBtn){ sortBtn.textContent='Sort A–Z'; }
+  showHow(true);
+  renderRooms(); updateTotals(); validateProceed();
+  toast('Reset complete', 'info');
+}
+
+function renderRooms(list = state.rooms){
+  const container = byId('rooms'); if(!container) return;
+  container.innerHTML='';
+  list.forEach((r, idx) => {
+    const card = document.createElement('div'); card.className='room-card neo-card';
+
+    const title = document.createElement('div');
+    title.className='room-title';
+    title.contentEditable = 'true';
+    title.setAttribute('role','textbox');
+    title.setAttribute('aria-label','Room name');
+    title.textContent=r.room || `Room ${idx+1}`;
+    title.addEventListener('input', (e)=>{ r.room = e.target.textContent.trim(); validateProceed(); });
+    card.appendChild(title);
+
+    const actions = document.createElement('div'); actions.className='room-actions';
+    const dupBtn = document.createElement('button');
+    dupBtn.className='icon-btn'; dupBtn.textContent='⎘';
+    dupBtn.title='Duplicate room'; dupBtn.setAttribute('aria-label','Duplicate room');
+    dupBtn.onclick=()=>{
+      const i = state.rooms.indexOf(r);
+      const baseName = r.room || `Room ${i+1}`;
+      const copy = { ...r, room: baseName + ' (copy)' };
+      if(i>=0){ state.rooms.splice(i+1,0,copy); }
+      renderRooms(); validateProceed(); updateTotals();
+    };
+    const delBtn = document.createElement('button');
+    delBtn.className='icon-btn'; delBtn.textContent='✕';
+    delBtn.title='Remove room'; delBtn.setAttribute('aria-label','Remove room');
+    delBtn.onclick=()=>{
+      const i = state.rooms.indexOf(r);
+      if(i>=0){ state.rooms.splice(i,1); }
+      renderRooms(); validateProceed(); updateTotals();
+    };
+    actions.append(dupBtn,delBtn); card.appendChild(actions);
+
+    // Inputs
+    const width = document.createElement('input');
+    width.className = 'room-input';
+    width.type = 'number'; width.min = '0'; width.step = '0.1';
+    width.setAttribute('aria-label','Width in '+state.unit);
+    width.inputMode = 'decimal';
+    width.value = r.width != null ? fmt1(r.width) : '';
+
+    const length = document.createElement('input');
+    length.className = 'room-input';
+    length.type = 'number'; length.min = '0'; length.step = '0.1';
+    length.setAttribute('aria-label','Length in '+state.unit);
+    length.inputMode = 'decimal';
+    length.value = r.length != null ? fmt1(r.length) : '';
+
+    const widId = `width-${idx}`; const lenId = `length-${idx}`; width.id = widId; length.id = lenId;
+    const wLabel = document.createElement('label'); wLabel.className='field-label'; wLabel.setAttribute('for', widId); wLabel.textContent='Width';
+    const lLabel = document.createElement('label'); lLabel.className='field-label'; lLabel.setAttribute('for', lenId); lLabel.textContent='Length';
+    const groupW = document.createElement('div'); groupW.className='field-group'; groupW.append(wLabel, width);
+    const groupL = document.createElement('div'); groupL.className='field-group'; groupL.append(lLabel, length);
+
+    // Order: Length then Width
+    card.appendChild(groupL);
+    card.appendChild(groupW);
+
+    const hint = document.createElement('div'); hint.className='inline-hint'; hint.textContent=''; card.appendChild(hint);
+
+    const meta = document.createElement('div'); meta.className='room-meta';
+    const b1 = document.createElement('span'); b1.className='badge neo-inset'; b1.textContent=state.unit;
+    const b2 = document.createElement('span'); b2.className='badge neo-inset'; b2.textContent = (r.length==null || r.width==null) ? 'Linear' : 'Area';
+    const areaBadge = document.createElement('span'); areaBadge.className='badge neo-inset'; areaBadge.textContent = (r.length!=null && r.width!=null)? `${fmt(r.length*r.width,2)} ${state.unit==='ft'?'ft²':'m²'}` : '—';
+    meta.append(b1,b2,areaBadge); card.appendChild(meta);
+
+    width.addEventListener('input', e => {
+      const v = e.target.value; const nvW = v === '' ? null : clampNonNeg(v);
+      r.width = nvW == null ? null : round1(nvW);
+      areaBadge.textContent = r.width == null || r.length == null ? '—' : `${fmt(r.length * r.width, 2)} ${state.unit === 'ft' ? 'ft²':'m²'}`;
+      hint.textContent = ((r.length!=null && r.length<0) || (r.width!=null && r.width<0)) ? 'Enter non-negative numbers.' : '';
+      updateTotals(); validateProceed();
+    });
+    width.addEventListener('blur', ()=>{ width.value = r.width==null ? '' : fmt1(r.width); });
+
+    length.addEventListener('input', e => {
+      const raw = e.target.value; const nvL = raw === '' ? null : clampNonNeg(raw);
+      const normalized = (nvL === 0) ? null : nvL;
+      r.length = normalized == null ? null : round1(normalized);
+      areaBadge.textContent = (r.width == null || r.length == null) ? '—' : `${fmt(r.length * r.width, 2)} ${state.unit === 'ft' ? 'ft²':'m²'}`;
+      hint.textContent = ((r.length!=null && r.length<0) || (r.width!=null && r.width<0)) ? 'Enter non-negative numbers.' : '';
+      updateTotals(); validateProceed();
+    });
+    length.addEventListener('blur', ()=>{ length.value = r.length==null ? '' : fmt1(r.length); });
+
+    container.appendChild(card);
+  });
+  updateTotals();
+}
+
+function loadRoomsFromJSON(json){
+  state.rooms = (json || []).map(r => {
+    const Lraw = parseFeetInches(r.length);
+    const Wraw = parseFeetInches(r.width);
+    const L = Lraw == null ? null : round1(Lraw);
+    const W = Wraw == null ? null : round1(Wraw);
+    return { room: r.room || '', length: (L === 0 ? null : L), width: W, unit: state.unit };
+  });
+  renderRooms(); validateProceed(); updateTotals();
+}
+
+function applyServerPayload(payload){
+  const rooms = deriveRooms(payload);
+  if (rooms && rooms.length){
+    loadRoomsFromJSON(rooms);
+    byId('search')?.classList.remove('hidden');
+    showHow(false);
+    toast(`Loaded ${rooms.length} room${rooms.length>1?'s':''} from server`, 'success');
+  } else {
+    console.warn('Response JSON shape not recognized. Payload:', payload);
+    toast('Response received but no rooms found in it.', 'danger', 5000);
+  }
+}
+
+// Show preview image (no filename/size)
+function showPreview(file){
+  const wrap = byId('preview'); if(!wrap) return; wrap.innerHTML='';
+  if(!file){ wrap.classList.add('hidden'); return; }
+  if(file.type && file.type.startsWith('image/')){
+    const img = new Image(); img.alt='Uploaded floor plan preview';
+    const url = URL.createObjectURL(file);
+    img.onload=()=>{ URL.revokeObjectURL(url); };
+    img.src = url; img.style.borderRadius='12px';
+    wrap.append(img);
+  } else {
+    const note=document.createElement('div'); note.textContent='Preview not available';
+    wrap.append(note);
+  }
+  wrap.classList.remove('hidden');
+}
+
+// Upload to webhook with loader
+async function uploadToWebhook(file){
+  state.sourceName = file?.name || null;
+  state.sourceMeta = { size: file?.size || 0, type: file?.type || 'unknown' };
+  if (!UPLOAD_WEBHOOK){ toast('No upload webhook configured.', 'danger', 4000); setLoading(false); return; }
+  let u; try { u = new URL(UPLOAD_WEBHOOK); } catch { toast('Invalid webhook URL', 'danger'); setLoading(false); return; }
+  if (location.protocol === 'https:' && u.protocol === 'http:'){ toast('Blocked: HTTPS page cannot POST to HTTP webhook. Use HTTPS or a proxy.', 'danger', 5000); setLoading(false); return; }
+  const form = new FormData(); form.append('file', file, file?.name || 'upload');
+  try{
+    const controller = new AbortController(); const to = setTimeout(()=>controller.abort('timeout'), 30000);
+    const res = await fetch(UPLOAD_WEBHOOK, { method:'POST', body: form, signal: controller.signal });
+    clearTimeout(to);
+    let payload = null; const ctype = (res.headers.get('content-type') || '').toLowerCase();
+    if(!res.ok){ const text = await res.text().catch(()=> ''); console.error('Upload failed', res.status, text); toast(`Upload failed: ${res.status}. ${text?.slice(0,120) || ''}`, 'danger', 6000); setLoading(false); return; }
+    if (ctype.includes('application/json')){ payload = await res.json().catch(()=>null); }
+    else { const text = await res.text().catch(()=> ''); try{ payload = text ? JSON.parse(text) : null; }catch{} }
+    if (payload != null) applyServerPayload(payload); else toast('Upload succeeded but response was empty/non-JSON.', 'info');
+  }catch(e){
+    console.warn('CORS/network error, retrying with no-cors:', e);
+    try{ await fetch(UPLOAD_WEBHOOK, { method:'POST', body: form, mode:'no-cors' }); toast('Uploaded (no-cors). Server should receive the file, but response is hidden by CORS.', 'success', 6000); }
+    catch(err){ console.error('Upload (no-cors) also failed', err); toast('Network error: could not send file. See console/network tab.', 'danger', 6000); }
+  } finally { setLoading(false); }
+}
+
+function handleFiles(files){ const f = files && files[0]; if(!f) return; showHow(false); showPreview(f); setLoading(true,'Extracting dimensions…'); uploadToWebhook(f); }
+
+// Events and dropzone
+byId('addRoomBtn')?.addEventListener('click', ()=>{ showHow(false); state.rooms.push({ room:'', length:null, width:null, unit:state.unit }); renderRooms(); validateProceed(); updateTotals(); });
+byId('sortBtn')?.addEventListener('click', (e)=>{
+  state.rooms.sort((a,b)=> state.sortAsc ? (a.room||'').localeCompare(b.room||'') : (b.room||'').localeCompare(a.room||''));
+  state.sortAsc=!state.sortAsc; e.currentTarget.textContent = state.sortAsc ? 'Sort A–Z' : 'Sort Z–A'; renderRooms();
+});
+byId('unitSwitch')?.addEventListener('change', (e)=>{
+  const to = e.target.value; if(to===state.unit) return;
+  if (to==='m'){
+    state.rooms.forEach(r=>{ if(r.length!=null) r.length=round1(ftToM(r.length)); if(r.width!=null) r.width=round1(ftToM(r.width)); r.unit='m'; });
+  } else {
+    state.rooms.forEach(r=>{ if(r.length!=null) r.length=round1(mToFt(r.length)); if(r.width!=null) r.width=round1(mToFt(r.width)); r.unit='ft'; });
+  }
+  state.unit=to; renderRooms();
+});
+byId('search')?.addEventListener('input', ()=>{
+  clearTimeout(window.__filterT);
+  window.__filterT = setTimeout(()=>{
+    const q = byId('search').value?.toLowerCase()||'';
+    const list = q ? state.rooms.filter(r => (r.room||'').toLowerCase().includes(q)) : state.rooms;
+    renderRooms(list);
+  },120);
+});
+byId('resetBtn')?.addEventListener('click', ()=>{ resetApp(); });
+
+const fileInput = byId('fileInput');
+fileInput?.addEventListener('change', e => handleFiles(e.target.files));
+const dz = byId('dropzone');
+if(dz){
+  ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('dragover'); }));
+  ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); dz.classList.remove('dragover'); }));
+  dz.addEventListener('click', () => fileInput && fileInput.click());
+  dz.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') fileInput && fileInput.click(); });
+  dz.addEventListener('drop', e => { if (e.dataTransfer.files?.length) handleFiles(e.dataTransfer.files); });
+}
+
+// --- Minimal developer tests (console only) ---
+showHow(true);
+(function runTests(){
+  const approxEq=(a,b,eps=0.05)=>Math.abs(a-b)<=eps; let pass=0, fail=0; const t=(cond,msg)=>{ if(cond){pass++;}else{fail++; console.warn('Test fail:',msg);} };
+  t(parseFeetInches("12'6\"")===12.5, "12'6\" -> 12.5");
+  t(parseFeetInches("12' 15\"")===13.25, "12' 15\" -> 13.25 (normalize inches)");
+  t(parseFeetInches('12')===12, "'12' -> 12");
+  t(parseFeetInches('6\"')===0.5, "'6\"' -> 0.5");
+  t(fmt1(12)==='12', 'fmt1 int');
+  t(fmt1(12.34)==='12.3', 'fmt1 one decimal');
+  t(approxEq(round1(ftToM(10)),3.0), '10 ft ≈ 3.0 m (round1)');
+  t(approxEq(round1(mToFt(3)),9.8,0.2), '3 m ≈ 9.8 ft (round1)');
+  const payload1=[{name:'Kitchen', length:3.7, width:3.1, unit:'m'}];
+  state.unit='ft'; const rooms1=deriveRooms(payload1); t(Array.isArray(rooms1)&&rooms1[0].room==='Kitchen', 'deriveRooms name mapping');
+  // Zero-length normalization should yield null WITHOUT touching UI
+  const zeroLen=[{room:'Utility', length:0, width:4, unit:'ft'}];
+  const rooms2=deriveRooms(zeroLen); t(Array.isArray(rooms2)&&rooms2[0].length===null, 'length 0 -> null');
+  const Ltest = round1(parseFeetInches(zeroLen[0].length));
+  t(((Ltest===0?null:Ltest)===null), 'loadRoomsFromJSON logic would convert 0 length to null');
+  t((byId('rooms')?.children?.length||0)===0, 'UI starts with no rooms rendered');
+  t(round1(null)===null, 'round1(null) -> null');
+  const out=deriveRooms([{room:'Balcony', length:null, width:null, unit:'ft'}]);
+  t(Array.isArray(out)&&out[0].width===null&&out[0].length===null, 'deriveRooms keeps nulls (no zeros)');
+  console.log(`Tests: ${pass} passed, ${fail} failed`);
+})();
+</script>
+</body>
+</html>
