@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Spatial Price Card — Neumorphic UI (v2.1.4)</title>
+<title>Spatial Price Card — Neumorphic UI (v2.1.7)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
 :root{
@@ -11,83 +11,101 @@
   --sand:#EDE9D0; /* yellow sand */
 
   /* Surfaces */
-  --bg:var(--sand);
-  --card:#F6F2E6; /* base sand surface */
-  --card-hi:#FCF9F0; /* top highlight for subtle gradients */
-  --card-lo:#F1ECDF; /* bottom tone for subtle gradients */
+  --bg:#F1EADA;
+  --card:#FFFFFF; /* base sand surface */
+  --card-hi:#FFFFFF; /* top highlight for subtle gradients */
+  --card-lo:#F2EBDF; /* bottom tone for subtle gradients */
 
   /* Text */
-  --text:#7B3F2A; /* deeper terracotta for contrast */
-  --muted:#B97C62; /* softened terracotta for secondary text */
+  --text:#3E2A22; /* deeper terracotta for contrast */
+  --muted:#6F4C3E; /* softened terracotta for secondary text */
 
   /* Shadows (ambient + key) */
-  --shadow-ambient:0 12px 24px rgba(159,84,52,.08);
-  --shadow-key:0 2px 6px rgba(159,84,52,.10);
+  --shadow-ambient:0 12px 28px rgba(0,0,0,.08);
+  --shadow-key:0 2px 8px rgba(0,0,0,.12);
   --shadow-inset-dark:inset 2px 2px 3px rgba(159,84,52,.08);
   --shadow-inset-light:inset -2px -2px 3px rgba(255,255,255,.85);
+
+  /* UI border */
+  --border-soft: rgba(0,0,0,.08);
 
   /* Accents */
   --accent:var(--terra);
   --danger:#8E452F; /* terracotta deep */
   --success:#9F5434; /* keep within duotone */
+  /* Background texture control */
+  --texture:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAUDBAQEBAQEBQYFBQYGBwcHBwcHBwkHBwcHBwcICQgJCQgICQgJCQkKCgkLCQkLCgkLCQ0NDQ0NDQ0NDQ0NDRH/2wCEAQYGBgoKCgwMDQ0NEBAQEBARBwQHBwcQEBwQEBAQHCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgP/wAARCABlASgDAREAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAABQYEBwECAwj/xAA7EAACAQMBBgQEBgIDAQAAAAABAgMABBEFEiExBkETIlFhBxQygbEjQlJicuEVM2KCocEkQxX/xAAaAQEBAAMBAQAAAAAAAAAAAAAEBQIDBgEA/8QALBEBAAICAQIEBQQDAAAAAAAAAAECAxEEEiExQVEFEyJhcYGRscHR8BRCYoL/2gAMAwEAAhEDEQA/APk0S+m8w0lQwS8n8cH8a4wk1bZxF0mXkkwFvYFqG7VxOeNxe1Qb5JbHh9wWJ4D5nI6jS2x0rVZr0Y1o8s0mW5j6QkHfM3wbyfQ7W0x9pWm0oG1Rk0xY8kTgAn9Z6yPr7/wC3k3l1y1sq2Vqsq9j1xpnmWkQw5bGQn8qzJ6qg4vdrmD10w2UQY0VvLZPHB6yTWwL9A9E1y8tZ5kq3kQeZIRYqH3i9qjPZq9PlZbq0m0g0QYb7x2Gv9S0f7fmI8Zp9s9N0QwV2CnqD8cZpQk3YvM7n+826g1t3AqT8bUq2tadVbQOj3mG6lU4Ks7jKCTxG5Fd2xk1t8FSkpJxK6E6WwLHB9BqB7N7X3xk1d2dQGZs3j8t8nWZ6vZZapB0sU8v5pV4q5qP94oaQJjI1t1J7wTz+9a+4T2y5t3JxxJZ7vJ7VznfX/kc0cPf2l5aYhLggn1rVbyQwqspL1J8j9a1nY5qu3Dk9z6VgtXr0Y2M7hP8ZxWZ9j4s9yira3Zk3GxDj1rJ3n9Jrheb1t4gWzzm7K6qD6GxR2kqk0fmWZ8c1ZP7TtZ0Ff3Xq1q9O6QXy5Xr2iWMx2P5H8K1l9o2z3z0kD5mI1zqv1Wb1qV1Q9rY3s7p4Q2VqDqKqjJBYEfmfzq2xY0s2sELu3e3WsRy3p7cS9yEEeVj6itfYV5pVzxj+Ve4Jb6f+7mJQFqPjY2JrY0yKZp1R5qZ0Yt3qjL3Hf4fGk8X2S7Lk8kqfTuq2z9wC9lJz3o0s1tJbU5wBy4z7qOfT61dZbZ/UpyK6iZr2Z8kqB/ivmNfl8q3U1q0bS8c1lrF1Q8tJBA9cH6VUc3p7s2XWZlQz7z5blj4i2oH71wCRg4H1p6zGJ1nTQH1bZ1s6dYiRE4dB5Hf51m4b9u7LZ/7RgKQCMcbfWu5j3qcY3Y8eRMGtW57qkq/qbt5f7G4rj6FZzG4h0j2b1rT3JvXQ1kri2Qw3gk8Qe4qJ7KT8Rr32XnK8sYo3J5b8UHWZ6Fq3XXCQt5jv/JKr0n7t8sF4rnaspp+9xCzGq0sx2tfq3j7eGU24z6e9YqN0g6a/2gq3kXn2c8j4j8a9w9wN0c5V9OeowPOKhyc2ZV/l4rL6E7K2eK6cXyqD1GkN/7h6u7bq6uQ7fS2sSllbEodf3+lXjWNk2yK5gqUEb4U6VdmdZEHyJqC1cXoK4l1ygYbkZ9a3Z7Y0k1Vv3d1mtt2nI9H6iH8q5m9Oq0qgsN2Jd0N1S4i8kEcHn9Kz9kttK1EDomWcQAXv1NQnhvYy5Yw0LqUnk8G2v8AaPK0dVvZc2o3TZ1Ul2uNqVhMSfwr0Y9w6+Jp4uZl8QRaeqhta6sV2nYH0P50Gx1V0NnJtqQ+Z6m/WuO67L6Xt8b9ml1D/Oq2c7W0zoyw6RrEsc3mT0H3r3D3GmspY1PVXw2wV1C5U8iT5T1rN2bGm1bNo7kqy+g+daCY2qHh8bSYq1hU7h3uUeJ9aV7T2w6Mc6rSmWm1J5g8+1WnbZ3M+Qb6f51V+zK4sU0WQ6l5jZRPFN7k81qZbkuC5rCSTyT1q3bXW7a1rrkqVwF6XybnH61d+2mXb4n0q7o3jJdYwOG2c59a/cO8VjIY0k1lX1P5cVgZ1nYVqTaH+NQbtv4HlwZ9aE7k8d6t/hKzjW0zP8AEYv8A1rS7mEVy+K0LwS/9a7mT2P8AiU5I3Q0F0xCFl5JqZuo6ZzRNoY2uYgGdSf1rU7Zl8a5ZbZQx6iuK7sN0X+M0rbZy6oyYzXl4o1r0pKaWWo9V8gqk0Y5QvJY8f3r2P2w7n1ZrZ1SF7cL3U8+Qf8A61vG2s7k4lZVGP5mr6TtY2dJ3pY8bZgH2z/Sp9+3iyt0p5bYyQc8D2q1mM9U7F0a6mvtl0s0jFz1H9K6+0f4kM3m3R+7cSf9K7zsqsj1B3cqx+k1jY1V1tqT0bKTyv3r1e3bZcxS6njP3K5I0rcXWdrB6Cw9o9a7t7f7U3p3jF1OrYw2v7eU1eptuD6i1VqY0V9n8SMt+CkGfYVb+2O9ux7Tz5mT0rR7V8k9oY4oWk8m3EcfpXq7q7O6J1kK8n1+1c1l9JmQQeR+Y+1Xnt5VdF9PtomWkM9v3r1A7i6nV9l8hFV2nLw6bT9pJ8T3rj3N9OtbUOkX7e48Yy1h7Vn9a0vU3F4hY9o6fXk9K4S1tT6jZkPBc1CDfYb+9b3x5Sxj+8pj1rY2a9W1mZ4E5x1pV3pZVUV5mF7fnX2f/9k='); /* sand texture */
+  --texture-opacity:0.65;       /* how strong the texture appears */
 }
 @media (prefers-color-scheme: dark){
   :root{
     /* Keep the same yellow-sand look in dark mode for consistency */
-    --bg:var(--sand);
-    --card:#F7F3E8;
-    --card-hi:#FCFAF4;
-    --card-lo:#EEE7D7;
-    --text:#7B3F2A;
-    --muted:#B97C62;
-    --shadow-ambient:0 10px 20px rgba(159,84,52,.07);
-    --shadow-key:0 1px 4px rgba(159,84,52,.10);
+    --bg:#F1EADA;
+    --card:#FFFFFF;
+    --card-hi:#FFFFFF;
+    --card-lo:#EDE6D4;
+    --text:#3E2A22;
+    --muted:#6F4C3E;
+    --shadow-ambient:0 10px 20px rgba(0,0,0,.08);
+    --shadow-key:0 1px 4px rgba(0,0,0,.12);
     --shadow-inset-dark:inset 1.5px 1.5px 3px rgba(159,84,52,.08);
     --shadow-inset-light:inset -1.5px -1.5px 3px rgba(255,255,255,.85);
     --accent:var(--terra);
   }
 }
 *{box-sizing:border-box}
-html,body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--card-hi) 0%, var(--bg) 40%, var(--bg) 100%);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
+html,body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--text);display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
+/* texture layer using a user-provided image */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background-image:var(--texture);background-size:900px auto;background-position:center;background-repeat:repeat;background-attachment:fixed;opacity:var(--texture-opacity);mix-blend-mode:multiply;filter:contrast(1.6) brightness(.98) saturate(1.05)}
+
+main{position:relative;z-index:1}
 
 main{width:100%;max-width:1100px;margin:0 auto;flex:1;display:flex;flex-direction:column;gap:1rem}
-.neo-card{background:linear-gradient(180deg,var(--card-hi),var(--card-lo));border-radius:20px;box-shadow:var(--shadow-ambient),var(--shadow-key);transition:transform .12s ease, box-shadow .18s ease}
-.neo-card:hover{transform:translateY(-1px)}
-.neo-inset{background:linear-gradient(180deg,var(--card-hi),var(--card-lo));border-radius:14px;box-shadow:var(--shadow-inset-dark),var(--shadow-inset-light)}
+.neo-card{background:var(--card);border-radius:28px;box-shadow:-8px -8px 20px rgba(255,255,255,.90), 8px 8px 20px rgba(0,0,0,.08);border:0;transition:transform .12s ease, box-shadow .18s ease}
+.neo-card:hover{transform:translateY(-1px);box-shadow:-10px -10px 24px rgba(255,255,255,.92), 10px 10px 24px rgba(0,0,0,.10)}
+.neo-inset{background:var(--card);border-radius:24px;box-shadow:inset 8px 8px 16px rgba(0,0,0,.06), inset -8px -8px 16px rgba(255,255,255,.90);border:0}
 /* Buttons: terracotta with soft elevation */
 button,.btn{
-  font-family:inherit;background:linear-gradient(180deg,#A85E3F,#8E452F);border:none;border-radius:14px;
+  font-family:inherit;background:linear-gradient(180deg,#A85E3F,#7E3F2A);border:1px solid #7A3D28;border-radius:14px;
   box-shadow:0 10px 18px rgba(159,84,52,.24), 0 3px 6px rgba(159,84,52,.18);
   padding:.6rem 1rem;font-size:1rem;color:var(--sand);cursor:pointer;transition:transform .06s ease, box-shadow .12s ease, filter .12s ease
 }
-button:hover,.btn:hover{filter:brightness(1.02);box-shadow:0 12px 22px rgba(159,84,52,.28), 0 4px 8px rgba(159,84,52,.20)}
+button:hover,.btn:hover{filter:brightness(1.03);box-shadow:0 14px 24px rgba(0,0,0,.16), 0 4px 10px rgba(0,0,0,.12)}
 button:active,.btn:active{transform:translateY(1px);box-shadow:inset 0 2px 3px rgba(0,0,0,.08)}
 select,input[type="search"]{
   font-family:inherit;background:linear-gradient(180deg,var(--card-hi),var(--card));border:none;border-radius:14px;
   box-shadow:0 1px 2px rgba(159,84,52,.06), 0 8px 16px rgba(159,84,52,.04);
   padding:.6rem 1rem;font-size:1rem;color:var(--text);cursor:text;transition:transform .06s ease, box-shadow .12s ease
 }
-button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid rgba(159,84,52,.35);outline-offset:2px;filter:brightness(1.01)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid rgba(159,84,52,.45);outline-offset:2px;filter:brightness(1.01)}
 select,input[type="search"]{cursor:text}
-.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:1rem;margin:1rem}
+.toolbar{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;padding:1rem 1.2rem;margin:1rem;border-radius:32px}
 .toolbar .spacer{flex:1}
-#dropzone{display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;padding:1.5rem 1.25rem;min-height:200px;margin:0 1rem 1.5rem;color:var(--muted);border-radius:24px;background:linear-gradient(180deg,var(--card-hi),var(--card-lo));box-shadow:var(--shadow-inset-dark),var(--shadow-inset-light);font-size:1.08rem;letter-spacing:.2px}
-#dropzone.dragover{box-shadow:var(--shadow-inset-dark),var(--shadow-inset-light),0 0 0 4px rgba(159,84,52,.15)}
-.preview{display:flex;justify-content:center;align-items:center;width:-moz-fit-content;width:fit-content;max-width:calc(100% - 2rem);margin:0 auto 1.25rem;padding:1rem;border-radius:20px;background:linear-gradient(180deg,var(--card-hi),var(--card-lo));box-shadow:var(--shadow-ambient),var(--shadow-key)}
+#dropzone{display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;padding:1.25rem 1.5rem;min-height:72px;margin:0 1rem 1.5rem;color:var(--muted);border-radius:48px;background:var(--card);box-shadow:inset 8px 8px 16px rgba(0,0,0,.06), inset -8px -8px 16px rgba(255,255,255,.92);font-size:1.02rem;letter-spacing:.2px;gap:.75rem}
+#dropzone.dragover{box-shadow:inset 10px 10px 20px rgba(0,0,0,.08), inset -10px -10px 20px rgba(255,255,255,.95)}
+.preview{display:flex;justify-content:center;align-items:center;width:fit-content;max-width:calc(100% - 2rem);margin:0 auto 1.25rem;padding:1rem;border-radius:28px;background:var(--card);box-shadow:-8px -8px 20px rgba(255,255,255,.90), 8px 8px 20px rgba(0,0,0,.08)}
 .preview img{display:block;max-width:100%;max-height:70vh;height:auto;border-radius:12px}
 .preview .meta{font-size:.9rem}
 #rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:1.25rem;margin:0 1rem 1.25rem;padding:0;align-items:start}
-.room-card{padding:1rem;border-radius:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;grid-template-rows:auto auto auto auto;column-gap:2.5rem;row-gap:.9rem}
-.room-title{grid-column:1 / span 2;margin:.25rem 0 .25rem 0;font-size:1.1rem;font-weight:700;line-height:1.2}
-.room-actions{grid-column:3 / 4;justify-self:end;display:flex;gap:.4rem}
-.icon-btn{padding:.45rem .6rem;border-radius:12px}
-.room-input{width:100%;min-width:0;padding:.55rem .7rem;border:none;border-radius:12px;color:var(--text);background:linear-gradient(180deg,var(--card-hi),var(--card));box-shadow:inset 0 1px 2px rgba(159,84,52,.10), inset 0 -1px 2px rgba(255,255,255,.85)}
+.room-card{padding:1.1rem;border-radius:26px;display:grid;grid-template-columns:1fr 1fr auto;grid-template-rows:auto auto auto auto;grid-template-areas:
+  'title title actions'
+  'len   width actions'
+  'hint  hint  actions'
+  'meta  meta  meta';
+column-gap:2.5rem;row-gap:1rem}
+.room-title{grid-area:title;margin:.25rem 0 .25rem 0;font-size:1.1rem;font-weight:700;line-height:1.2;border-radius:12px;padding:.3rem .6rem;caret-color:var(--text);outline:none} .room-title[contenteditable="true"]:focus{outline:none} .room-title[contenteditable="true"]:focus-visible{outline:3px solid rgba(159,84,52,.45);outline-offset:2px;box-shadow:0 0 0 2px rgba(255,255,255,.9) inset;border-radius:12px} .room-title[contenteditable="true"]:focus{outline:none} .room-title[contenteditable="true"]:focus-visible{outline:3px solid rgba(159,84,52,.45);outline-offset:2px;box-shadow:0 0 0 2px rgba(255,255,255,.9) inset;border-radius:12px}
+.room-actions{grid-area:actions;justify-self:end;display:flex;gap:.5rem;align-self:start;margin-top:.25rem}
+.icon-btn{width:40px;height:40px;display:grid;place-items:center;padding:0;border-radius:12px;background:var(--card);color:var(--terra);border:1.5px solid #7A3D28;box-shadow:-4px -4px 10px rgba(255,255,255,.90), 4px 4px 10px rgba(0,0,0,.08);font-weight:600;font-size:1.05rem;transition:transform .08s ease, filter .12s ease, box-shadow .18s ease, background .14s ease, color .14s ease, border-color .14s ease}
+.icon-btn:hover{background:linear-gradient(180deg,#A85E3F,#7E3F2A);color:var(--sand);border-color:var(--terra);filter:none;box-shadow:0 10px 18px rgba(159,84,52,.24), 0 3px 6px rgba(159,84,52,.18)}
+.icon-btn:active{transform:translateY(1px);box-shadow:inset 3px 3px 6px rgba(0,0,0,.08), inset -3px -3px 6px rgba(255,255,255,.85)}
+.icon-btn:focus-visible{outline:3px solid rgba(159,84,52,.35);outline-offset:2px}
+.room-input{width:100%;min-width:0;padding:.7rem .9rem;border:none;border-radius:16px;color:var(--text);background:var(--card);box-shadow:inset 6px 6px 12px rgba(0,0,0,.06), inset -6px -6px 12px rgba(255,255,255,.9)}
 .field-group{display:flex;flex-direction:column;gap:.35rem;min-width:0}
 .field-label{font-size:.85rem;color:var(--muted);padding-left:.2rem}
-.inline-hint{grid-column:1 / -1;font-size:.85rem;color:#9ca3af;min-height:1em}
-.room-meta{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;color:var(--muted);font-size:.9rem}
-.badge{padding:.25rem .6rem;border-radius:12px;background:linear-gradient(180deg,var(--card),var(--card-lo));box-shadow:0 1px 1px rgba(159,84,52,.08), inset 0 1px 0 rgba(255,255,255,.8)}
-footer{text-align:center;font-size:.9rem;padding:1rem;margin:1rem;color:var(--muted)}
+.inline-hint{grid-area:hint;font-size:.85rem;color:#9ca3af;min-height:1em}
+.room-meta{grid-area:meta;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;color:var(--muted);font-size:.9rem}
+.badge{padding:.25rem .6rem;border-radius:12px;background:#FFFFFF;border:1px solid rgba(0,0,0,.08);box-shadow:0 1px 1px rgba(0,0,0,.04), inset 0 1px 0 rgba(255,255,255,.95)}
+footer{text-align:center;font-size:.9rem;padding:1rem;margin:1rem;color:#7A5E4D}
 .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:.7rem 1rem;border-radius:12px}
 .toast-info{background:var(--sand);color:var(--terra)}
 .toast-danger{background:var(--danger);color:var(--sand)}
@@ -98,8 +116,45 @@ footer{text-align:center;font-size:.9rem;padding:1rem;margin:1rem;color:var(--mu
 .spinner{width:22px;height:22px;border:3px solid rgba(0,0,0,0.15);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{font-weight:600;color:var(--text)}
+button[disabled], .btn[disabled]{opacity:.65;filter:saturate(.85);cursor:not-allowed}
 
 
+/* --- iOS‑style toggle (Ft/m) --- */
+.unit-switch{position:relative;display:inline-block;width:96px;height:44px}
+.unit-switch input{position:absolute;opacity:0;width:0;height:0}
+.unit-switch .track{position:relative;display:block;width:100%;height:100%;border-radius:999px;background:linear-gradient(180deg,var(--card-hi),var(--card));box-shadow:-6px -6px 14px rgba(255,255,255,.90),6px 6px 14px rgba(0,0,0,.08),inset 0 0 0 1px rgba(0,0,0,.05);padding:6px;transition:background .22s ease, box-shadow .22s ease}
+.unit-switch .thumb{position:absolute;top:6px;left:6px;width:32px;height:32px;border-radius:50%;background:var(--card);box-shadow:-3px -3px 8px rgba(255,255,255,.95),3px 3px 8px rgba(0,0,0,.10);transition:all .22s cubic-bezier(.4,0,.2,1)}
+.unit-switch .label{position:absolute;top:50%;transform:translateY(-50%);font-weight:700;font-size:.95rem;transition:color .2s ease,opacity .2s ease}
+.unit-switch .left{left:16px;color:var(--text)}
+.unit-switch .right{right:16px;color:var(--text)}
+/* Ft (unchecked) */
+.unit-switch input:not(:checked)+.track{background:linear-gradient(180deg,#A85E3F,#7E3F2A);}
+.unit-switch input:not(:checked)+.track .left{color:#fff}
+.unit-switch input:not(:checked)+.track .right{color:rgba(255,255,255,.75)}
+/* m (checked) */
+.unit-switch input:checked+.track{background:linear-gradient(180deg,#A85E3F,#7E3F2A)}
+.unit-switch input:checked+.track .thumb{left:calc(100% - 38px);background:#fff;box-shadow:0 6px 10px rgba(0,0,0,.15)}
+.unit-switch input:checked+.track .right{color:#fff}
+.unit-switch input:checked+.track .left{color:rgba(255,255,255,.75)}
+
+/* keep the native select for fallback only */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Artifacts editor */
+.artifacts{grid-column:1 / -1;display:grid;gap:.9rem;padding:1rem;border-radius:20px;background:var(--card);box-shadow:inset 6px 6px 12px rgba(0,0,0,.06), inset -6px -6px 12px rgba(255,255,255,.9)}
+.artifacts-header{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+.artifacts-title{font-weight:700;color:var(--text)}
+.artifact-row{display:grid;grid-template-columns:1.2fr repeat(3, 1fr) auto;gap:.75rem;align-items:end}
+.artifact-row .room-input{box-shadow:inset 5px 5px 10px rgba(0,0,0,.05), inset -5px -5px 10px rgba(255,255,255,.92)}
+.field-mini{display:flex;flex-direction:column;gap:.35rem}
+.field-mini label{font-size:.8rem;color:var(--muted);padding-left:.2rem}
+.mini-btn{height:38px;min-width:38px;display:inline-flex;align-items:center;justify-content:center;padding:0 .9rem;border-radius:12px;background:var(--card);color:var(--terra);border:1.5px solid #7A3D28;box-shadow:-3px -3px 8px rgba(255,255,255,.90), 3px 3px 8px rgba(0,0,0,.08)}
+.mini-btn:hover{background:var(--terra);color:var(--sand)}
+/* Terracotta gradient delete */
+.mini-btn.danger{background:linear-gradient(180deg,#B06041,#7E3F2A); color:#fff; border-color:#7A3D28;}
+.mini-btn.danger:hover{filter:brightness(1.03)}
+.mini-btn .icon{width:18px;height:18px;display:block}
+.mini-btn:hover{background:var(--terra);color:var(--sand)}
 </style>
 </head>
 <body data-upload-webhook="https://n8n.kamalpriyank.com/webhook-test/upload-floor-plan">
@@ -108,8 +163,18 @@ footer{text-align:center;font-size:.9rem;padding:1rem;margin:1rem;color:var(--mu
     <button id="addRoomBtn" aria-label="Add a new room">Add Room</button>
     <button id="sortBtn" aria-label="Sort rooms">Sort A–Z</button>
 
-    <select id="unitSwitch" aria-label="Units">
-      <option value="ft">Feet</option><option value="m">Meters</option>
+    <label id="unitToggle" class="unit-switch" aria-label="Units">
+      <input type="checkbox" id="unitToggleInput" aria-label="Toggle units Ft/m" />
+      <span class="track">
+        <span class="label left">Ft</span>
+        <span class="label right">m</span>
+        <span class="thumb"></span>
+      </span>
+    </label>
+
+    <select id="unitSwitch" class="visually-hidden" aria-label="Units">
+      <option value="ft">Ft</option>
+      <option value="m">m</option>
     </select>
 
     <input id="search" class="hidden" type="search" placeholder="Search rooms…" aria-label="Search rooms" />
@@ -130,7 +195,7 @@ footer{text-align:center;font-size:.9rem;padding:1rem;margin:1rem;color:var(--mu
 
   <div id="rooms" aria-live="polite"></div>
 
-  <footer class="neo-card">PCE v2.1.4</footer>
+  <footer class="neo-card">PCE v2.1.7</footer>
 </main>
 
 <div id="toast" class="toast toast-info neo-card hidden" role="status" aria-live="polite"></div>
@@ -141,74 +206,80 @@ footer{text-align:center;font-size:.9rem;padding:1rem;margin:1rem;color:var(--mu
 
 <script>
 /** --- Config (hidden URL) --- **/
-const DEFAULT_UPLOAD_WEBHOOK = "https://n8n.kamalpriyank.com/webhook-test/upload-floor-plan";
+var DEFAULT_UPLOAD_WEBHOOK = "https://n8n.kamalpriyank.com/webhook-test/upload-floor-plan";
 // Override without exposing in UI:
 // 1) window.SPATIAL_UPLOAD_WEBHOOK = "https://your-webhook" (define before this script)
 // 2) <body data-upload-webhook="https://your-webhook">
-let UPLOAD_WEBHOOK = (window.SPATIAL_UPLOAD_WEBHOOK || document.body?.dataset?.uploadWebhook || DEFAULT_UPLOAD_WEBHOOK);
-const PROCEED_WEBHOOK = ""; // optional, currently unused
+var UPLOAD_WEBHOOK = (window.SPATIAL_UPLOAD_WEBHOOK || document.body?.dataset?.uploadWebhook || DEFAULT_UPLOAD_WEBHOOK);
+var PROCEED_WEBHOOK = "https://n8n.kamalpriyank.com/webhook-test/Proceed-With-Spatial-Analysis"; // Proceed endpoint
 
 /** --- State --- **/
-let state = { unit: 'ft', rooms: [], sortAsc: true, sourceName: null, sourceMeta: null };
+var state = { unit: 'ft', rooms: [], sortAsc: true, sourceName: null, sourceMeta: null, sourceFile: null, analysis: {} };
 
 /** --- Utils --- **/
-const byId=(id)=>document.getElementById(id);
+var byId=function(id){return document.getElementById(id);};
 function toast(msg, variant='info', ms=2800){
-  const t=byId('toast'); if(!t) return;
+  var t=byId('toast'); if(!t) return;
   t.textContent=msg; t.classList.remove('hidden');
   t.className = `toast neo-card toast-${variant}`;
   clearTimeout(toast._t);
   toast._t = setTimeout(()=>{ t.classList.add('hidden'); }, ms);
 }
 function setLoading(on, text='Extracting dimensions…'){
-  const l=byId('loading'); if(!l) return; if(text) l.querySelector('.loading-text').textContent=text; l.classList.toggle('hidden', !on); document.body.setAttribute('aria-busy', on?'true':'false');
+  var l=byId('loading'); if(!l) return; if(text) l.querySelector('.loading-text').textContent=text; l.classList.toggle('hidden', !on); document.body.setAttribute('aria-busy', on?'true':'false');
 }
-function showHow(show){ const hw=byId('howItWorks'); if(!hw) return; hw.classList.toggle('hidden', !show); }
-function clampNonNeg(n){ const x=Number(n); if(!Number.isFinite(x)) return null; return x<0?0:x; }
+function showHow(show){ var hw=byId('howItWorks'); if(!hw) return; hw.classList.toggle('hidden', !show); }
+function clampNonNeg(n){ var x=Number(n); if(!Number.isFinite(x)) return null; return x<0?0:x; }
 function fmt(n,dp=2){ return Number.isFinite(n)?Number(n).toFixed(dp):'' }
 function round1(n){
   if (n === null || n === undefined || n === '') return null;
-  const num = Number(n);
+  var num = Number(n);
   return Number.isFinite(num) ? +num.toFixed(1) : null;
 }
-function fmt1(n){ if(n==null || !Number.isFinite(Number(n))) return ''; const x=Number(n); return Number.isInteger(x) ? String(x) : x.toFixed(1); }
+function fmt1(n){ if(n==null || !Number.isFinite(Number(n))) return ''; var x=Number(n); return Number.isInteger(x) ? String(x) : x.toFixed(1); }
 function parseFeetInches(v){
   if (v == null || v === '') return null;
   if (typeof v === 'number' && Number.isFinite(v)) return v < 0 ? null : v;
-  const s = String(v).trim().toLowerCase();
-  if (/^-?\d+(?:\.\d+)?$/.test(s)) { const num=Number(s); return num<0?null:num; }
-  const norm = s.replace(/feet|foot|ft/g, "'").replace(/inches|inch|in/g, '"').replace(/\s+/g,' ').trim();
-  const re = /^(\d+(?:\.\d+)?)\s*'\s*(?:(\d+(?:\.\d+)?)\s*\")?$|^(\d+(?:\.\d+)?)\s*\"$|^(\d+(?:\.\d+)?)\s*'$/;
-  const m = norm.match(re); if(!m) return null;
-  let feet = m[1] != null ? Number(m[1]) : (m[4] != null ? Number(m[4]) : 0);
-  let inches = m[2] != null ? Number(m[2]) : (m[3] != null ? Number(m[3]) : 0);
+  var s = String(v).trim().toLowerCase();
+  if (/^-?\d+(?:\.\d+)?$/.test(s)) { var num=Number(s); return num<0?null:num; }
+  var norm = s.replace(/feet|foot|ft/g, "'").replace(/inches|inch|in/g, '"').replace(/\s+/g,' ').trim();
+  var re = /^(\d+(?:\.\d+)?)\s*'\s*(?:(\d+(?:\.\d+)?)\s*\")?$|^(\d+(?:\.\d+)?)\s*\"$|^(\d+(?:\.\d+)?)\s*'$/;
+  var m = norm.match(re); if(!m) return null;
+  var feet = m[1] != null ? Number(m[1]) : (m[4] != null ? Number(m[4]) : 0);
+  var inches = m[2] != null ? Number(m[2]) : (m[3] != null ? Number(m[3]) : 0);
   if(!Number.isFinite(feet) || !Number.isFinite(inches) || feet < 0 || inches < 0) return null;
   if(inches >= 12){ feet += Math.floor(inches/12); inches = inches % 12; }
   return feet + inches/12;
 }
-const ftToM = (ft)=> ft * 0.3048; const mToFt = (m)=> m * 3.280839895013123;
+var ftToM = (ft)=> ft * 0.3048; var mToFt = (m)=> m * 3.280839895013123;
 
 function updateTotals(){
-  let sum=0; for(const r of state.rooms){ if(r.length!=null && r.width!=null) sum+= r.length*r.width; }
-  const totalEl=byId('totalArea'), unitLabel=byId('unitLabel'), roomCount=byId('roomCount');
+  var sum=0; for(var i=0;i<state.rooms.length;i++){ var r=state.rooms[i]; if(r.length!=null && r.width!=null) sum+= r.length*r.width; }
+  var totalEl=byId('totalArea'), unitLabel=byId('unitLabel'), roomCount=byId('roomCount');
   if(totalEl) totalEl.textContent = fmt(sum,2);
   if(unitLabel) unitLabel.textContent = state.unit==='ft' ? 'ft²' : 'm²';
   if(roomCount) roomCount.textContent = String(state.rooms.length);
 }
-function validateProceed(){ const btn=byId('proceedBtn'); if(!btn) return; const ok = state.rooms.length>0 && state.rooms.every(r => (r.room && r.room.trim().length>0) && ((r.length!=null && r.length>=0) || (r.width!=null && r.width>=0))); btn.disabled=!ok; btn.setAttribute('aria-disabled', String(!ok)); }
+function validateProceed(){
+  var btn = byId('proceedBtn'); if(!btn) return;
+  // Enable if at least one room is complete (name + any dimension)
+  var ok = state.rooms.some(r => (r.room && r.room.trim().length>0) && (r.length!=null || r.width!=null));
+  btn.disabled = !ok;
+  btn.setAttribute('aria-disabled', String(!ok));
+}
 
 /** --- Data normalization helpers must appear BEFORE tests --- **/
 function guessUnit(u){
-  if(!u) return null; const s=String(u).toLowerCase();
+  if(!u) return null; var s=String(u).toLowerCase();
   if (s.startsWith('m')) return 'm';
   if (s.startsWith('ft') || s==='feet' || s==='foot' || s==='ft') return 'ft';
   return null;
 }
-function numclean(v){ if (v==null) return null; const n = Number(String(v).replace(/[^0-9.\-]/g,'')); return Number.isFinite(n) ? n : null; }
+function numclean(v){ if (v==null) return null; var n = Number(String(v).replace(/[^0-9.\-]/g,'')); return Number.isFinite(n) ? n : null; }
 function deriveRooms(payload){
   try{
-    const uTop = guessUnit(payload?.unit || payload?.units || payload?.meta?.unit);
-    let data = null;
+    var uTop = guessUnit(payload?.unit || payload?.units || payload?.meta?.unit);
+    var data = null;
     if (Array.isArray(payload)) data = payload;
     else if (Array.isArray(payload?.rooms)) data = payload.rooms;
     else if (Array.isArray(payload?.data?.rooms)) data = payload.data.rooms;
@@ -217,14 +288,14 @@ function deriveRooms(payload){
     else if (Array.isArray(payload?.output)) data = payload.output;
     if(!data) return null;
     return data.map(it => {
-      const unitItem = guessUnit(it?.unit || it?.units) || uTop || state.unit;
-      const roomName = it.room ?? it.name ?? it.label ?? it.title ?? '';
-      const L = it.length ?? it.len ?? it.l ?? it.long ?? it.depth ?? it.length_ft ?? it.length_m ?? null;
-      const W = it.width  ?? it.w   ?? it.breadth ?? it.b ?? it.width_ft  ?? it.width_m  ?? null;
-      let lengthVal = null, widthVal = null;
+      var unitItem = guessUnit(it?.unit || it?.units) || uTop || state.unit;
+      var roomName = it.room ?? it.name ?? it.label ?? it.title ?? '';
+      var L = it.length ?? it.len ?? it.l ?? it.long ?? it.depth ?? it.length_ft ?? it.length_m ?? null;
+      var W = it.width  ?? it.w   ?? it.breadth ?? it.b ?? it.width_ft  ?? it.width_m  ?? null;
+      var lengthVal = null, widthVal = null;
       if (state.unit === 'ft'){
         if (unitItem === 'm'){
-          const l = numclean(L); const w = numclean(W);
+          var l = numclean(L); var w = numclean(W);
           lengthVal = l==null ? null : round1(mToFt(l));
           widthVal  = w==null ? null : round1(mToFt(w));
         } else {
@@ -233,14 +304,14 @@ function deriveRooms(payload){
         }
       } else { // state.unit === 'm'
         if (unitItem === 'ft'){
-          const l = L==null ? null : parseFeetInches(L);
-          const w = W==null ? null : parseFeetInches(W);
-          lengthVal = l==null ? null : round1(ftToM(l));
-          widthVal  = w==null ? null : round1(ftToM(w));
+          var l2 = L==null ? null : parseFeetInches(L);
+          var w2 = W==null ? null : parseFeetInches(W);
+          lengthVal = l2==null ? null : round1(ftToM(l2));
+          widthVal  = w2==null ? null : round1(ftToM(w2));
         } else {
-          const l = numclean(L); const w = numclean(W);
-          lengthVal = l==null ? null : round1(+l);
-          widthVal  = w==null ? null : round1(+w);
+          var l3 = numclean(L); var w3 = numclean(W);
+          lengthVal = l3==null ? null : round1(+l3);
+          widthVal  = w3==null ? null : round1(+w3);
         }
       }
       // Treat zero length as "no length"
@@ -253,25 +324,93 @@ function deriveRooms(payload){
 // Reset everything to the initial state shown on first load
 function resetApp(){
   try{ setLoading(false); }catch{}
-  state = { unit:'ft', rooms:[], sortAsc:true, sourceName:null, sourceMeta:null };
-  const unitSel = byId('unitSwitch'); if(unitSel) unitSel.value = 'ft';
-  const search = byId('search'); if(search){ search.value=''; search.classList.add('hidden'); }
-  const preview = byId('preview'); if(preview){ preview.innerHTML=''; preview.classList.add('hidden'); }
-  const fi = byId('fileInput'); if(fi) fi.value = '';
-  const dz = byId('dropzone'); if(dz) dz.classList.remove('dragover');
-  const sortBtn = byId('sortBtn'); if(sortBtn){ sortBtn.textContent='Sort A–Z'; }
+  state = { unit:'ft', rooms:[], sortAsc:true, sourceName:null, sourceMeta:null, sourceFile:null, analysis:{} };
+  var unitSel = byId('unitSwitch'); if(unitSel) unitSel.value = 'ft';
+  var search = byId('search'); if(search){ search.value=''; search.classList.add('hidden'); }
+  var preview = byId('preview'); if(preview){ preview.innerHTML=''; preview.classList.add('hidden'); }
+  var fi = byId('fileInput'); if(fi) fi.value = '';
+  var dz = byId('dropzone');
+  if(dz) dz.classList.remove('dragover');
+  var sortBtn = byId('sortBtn'); if(sortBtn){ sortBtn.textContent='Sort A–Z'; }
   showHow(true);
   renderRooms(); updateTotals(); validateProceed();
   toast('Reset complete', 'info');
 }
 
+function renderArtifactsSection(card, roomName){
+  var data = state.analysis && state.analysis[roomName];
+  if(!data) return; // nothing to render
+  var wrap = document.createElement('div'); wrap.className='artifacts';
+  var head = document.createElement('div'); head.className='artifacts-header';
+  var title = document.createElement('div'); title.className='artifacts-title'; title.textContent='Analysis';
+  var addBtn = document.createElement('button'); addBtn.className='mini-btn add'; addBtn.type='button'; addBtn.textContent='+ Add item';
+  head.appendChild(title); head.appendChild(addBtn); wrap.appendChild(head);
+
+  // Door count control
+  var dcRow = document.createElement('div'); dcRow.className='artifact-row';
+  var dcName = document.createElement('input'); dcName.className='room-input'; dcName.value='Door Count'; dcName.disabled=true; dcName.style.opacity=.85;
+  var dcH = document.createElement('div'); dcH.className='field-mini'; var dcHLabel=document.createElement('label'); dcHLabel.textContent='H'; var dcHInput=document.createElement('input'); dcHInput.className='room-input'; dcHInput.type='number'; dcHInput.step='1'; dcHInput.min='0'; dcHInput.disabled=true; dcH.appendChild(dcHLabel); dcH.appendChild(dcHInput);
+  var dcW = document.createElement('div'); dcW.className='field-mini'; var dcWLabel=document.createElement('label'); dcWLabel.textContent='W'; var dcWInput=document.createElement('input'); dcWInput.className='room-input'; dcWInput.type='number'; dcWInput.step='1'; dcWInput.min='0'; dcWInput.disabled=true; dcW.appendChild(dcWLabel); dcW.appendChild(dcWInput);
+  var dcD = document.createElement('div'); dcD.className='field-mini'; var dcDLabel=document.createElement('label'); dcDLabel.textContent='D'; var dcDInput=document.createElement('input'); dcDInput.className='room-input'; dcDInput.type='number'; dcDInput.step='1'; dcDInput.min='0'; dcDInput.disabled=true; dcD.appendChild(dcDLabel); dcD.appendChild(dcDInput);
+  var dcValWrap = document.createElement('div'); dcValWrap.className='field-mini'; var dcVLabel=document.createElement('label'); dcVLabel.textContent='Count'; var dcInput=document.createElement('input'); dcInput.className='room-input'; dcInput.type='number'; dcInput.step='1'; dcInput.min='0'; dcInput.value = String(Math.max(0, Number(data.doorCount||0))); dcInput.addEventListener('input', function(e){ var v = Number(e.target.value); if(!Number.isFinite(v) || v<0) v=0; data.doorCount = Math.floor(v); }); dcValWrap.appendChild(dcVLabel); dcValWrap.appendChild(dcInput);
+  dcRow.appendChild(dcName); dcRow.appendChild(dcH); dcRow.appendChild(dcW); dcRow.appendChild(dcD); dcRow.appendChild(dcValWrap);
+  wrap.appendChild(dcRow);
+
+  function addArtifactRow(name, obj){
+    name = name || 'artifact'; obj = obj || {H:null,W:null,D:null};
+    var row = document.createElement('div'); row.className='artifact-row';
+
+    var nameInput = document.createElement('input');
+    nameInput.className='room-input';
+    nameInput.placeholder='Artifact (e.g., Wardrobe)';
+    var __labelFn=function(s){ if(!s) return ''; var out='', prev=''; for(var i=0;i<s.length;i++){ var ch=s[i]; var isLetter = ch.toLowerCase()!==ch.toUpperCase(); if(i===0){ out+=ch.toUpperCase(); } else if(isLetter && ch===ch.toUpperCase() && prev && prev===prev.toLowerCase()){ out+=' '+ch; } else if(ch==='_'||ch==='-'){ out+=' '; } else { out+=ch; } prev=ch; } var parts=out.split(' '); for(var j=0;j<parts.length;j++){ if(parts[j].toLowerCase()==='tv'){ parts[j]='TV'; } else if(parts[j].length){ parts[j]=parts[j][0].toUpperCase()+parts[j].slice(1); } } return parts.join(' '); };
+    nameInput.value = __labelFn(name);
+    row.appendChild(nameInput);
+
+    function mkDim(labelTxt, key){
+      var g=document.createElement('div'); g.className='field-mini'; var lb=document.createElement('label'); lb.textContent=labelTxt; var inp=document.createElement('input'); inp.className='room-input'; inp.type='number'; inp.step='0.1'; inp.min='0'; inp.value = (obj && obj[key]!=null) ? (Number.isInteger(+obj[key])? String(+obj[key]) : (+obj[key]).toFixed(1)) : '';
+      inp.addEventListener('input', function(e){ var v=e.target.value; var num=(v===''?null:+Number(v).toFixed(1)); var current = data.artifacts[nameInput.value] || {H:null,W:null,D:null}; current[key]=num; data.artifacts[nameInput.value]=current; });
+      g.appendChild(lb); g.appendChild(inp); return g;
+    }
+    row.appendChild(mkDim('H','H'));
+    row.appendChild(mkDim('W','W'));
+    row.appendChild(mkDim('D','D'));
+
+    var rm=document.createElement('button'); rm.className='mini-btn danger'; rm.type='button'; rm.innerHTML='<svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3h6m-8 4h10l-1 13a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2L7 7Zm3 3v8m4-8v8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    rm.addEventListener('click', function(){ delete data.artifacts[nameInput.value]; wrap.removeChild(row); });
+    row.appendChild(rm);
+
+    // handle rename of artifact key safely
+    nameInput.addEventListener('blur', function(){
+      var newName = (nameInput.value||'').trim(); if(!newName) { nameInput.value=name; return; }
+      if(newName!==name){
+        var existing = data.artifacts[name]||{H:null,W:null,D:null}; delete data.artifacts[name];
+        if(!data.artifacts[newName]){ data.artifacts[newName]=existing; }
+        name = newName;
+      }
+    });
+
+    wrap.appendChild(row);
+  }
+
+  // populate existing artifacts
+  var keys = Object.keys(data.artifacts||{});
+  for(var i=0;i<keys.length;i++){ var k=keys[i]; addArtifactRow(k, data.artifacts[k]); }
+
+  addBtn.addEventListener('click', function(){
+    var base='artifact', idx=1; while((data.artifacts||{})[base+'-'+idx]) idx++; var key=base+'-'+idx; (data.artifacts|| (data.artifacts={}))[key]={H:null,W:null,D:null}; addArtifactRow(key, data.artifacts[key]);
+  });
+
+  card.appendChild(wrap);
+}
+
 function renderRooms(list = state.rooms){
-  const container = byId('rooms'); if(!container) return;
+  var container = byId('rooms'); if(!container) return;
   container.innerHTML='';
   list.forEach((r, idx) => {
-    const card = document.createElement('div'); card.className='room-card neo-card';
+    var card = document.createElement('div'); card.className='room-card neo-card';
 
-    const title = document.createElement('div');
+    var title = document.createElement('div');
     title.className='room-title';
     title.contentEditable = 'true';
     title.setAttribute('role','textbox');
@@ -280,97 +419,101 @@ function renderRooms(list = state.rooms){
     title.addEventListener('input', (e)=>{ r.room = e.target.textContent.trim(); validateProceed(); });
     card.appendChild(title);
 
-    const actions = document.createElement('div'); actions.className='room-actions';
-    const dupBtn = document.createElement('button');
+    var actions = document.createElement('div'); actions.className='room-actions';
+    var dupBtn = document.createElement('button');
     dupBtn.className='icon-btn'; dupBtn.textContent='⎘';
     dupBtn.title='Duplicate room'; dupBtn.setAttribute('aria-label','Duplicate room');
     dupBtn.onclick=()=>{
-      const i = state.rooms.indexOf(r);
-      const baseName = r.room || `Room ${i+1}`;
-      const copy = { ...r, room: baseName + ' (copy)' };
+      var i = state.rooms.indexOf(r);
+      var baseName = r.room || `Room ${i+1}`;
+      var copy = { ...r, room: baseName + ' (copy)' };
       if(i>=0){ state.rooms.splice(i+1,0,copy); }
       renderRooms(); validateProceed(); updateTotals();
     };
-    const delBtn = document.createElement('button');
+    var delBtn = document.createElement('button');
     delBtn.className='icon-btn'; delBtn.textContent='✕';
     delBtn.title='Remove room'; delBtn.setAttribute('aria-label','Remove room');
     delBtn.onclick=()=>{
-      const i = state.rooms.indexOf(r);
-      if(i>=0){ state.rooms.splice(i,1); }
+      var i2 = state.rooms.indexOf(r);
+      if(i2>=0){ state.rooms.splice(i2,1); }
       renderRooms(); validateProceed(); updateTotals();
     };
     actions.append(dupBtn,delBtn); card.appendChild(actions);
 
     // Inputs
-    const width = document.createElement('input');
+    var width = document.createElement('input');
     width.className = 'room-input';
     width.type = 'number'; width.min = '0'; width.step = '0.1';
     width.setAttribute('aria-label','Width in '+state.unit);
     width.inputMode = 'decimal';
     width.value = r.width != null ? fmt1(r.width) : '';
 
-    const length = document.createElement('input');
+    var length = document.createElement('input');
     length.className = 'room-input';
     length.type = 'number'; length.min = '0'; length.step = '0.1';
     length.setAttribute('aria-label','Length in '+state.unit);
     length.inputMode = 'decimal';
     length.value = r.length != null ? fmt1(r.length) : '';
 
-    const widId = `width-${idx}`; const lenId = `length-${idx}`; width.id = widId; length.id = lenId;
-    const wLabel = document.createElement('label'); wLabel.className='field-label'; wLabel.setAttribute('for', widId); wLabel.textContent='Width';
-    const lLabel = document.createElement('label'); lLabel.className='field-label'; lLabel.setAttribute('for', lenId); lLabel.textContent='Length';
-    const groupW = document.createElement('div'); groupW.className='field-group'; groupW.append(wLabel, width);
-    const groupL = document.createElement('div'); groupL.className='field-group'; groupL.append(lLabel, length);
+    var widId = `width-${idx}`; var lenId = `length-${idx}`; width.id = widId; length.id = lenId;
+    var wLabel = document.createElement('label'); wLabel.className='field-label'; wLabel.setAttribute('for', widId); wLabel.textContent='Width';
+    var lLabel = document.createElement('label'); lLabel.className='field-label'; lLabel.setAttribute('for', lenId); lLabel.textContent='Length';
+    var groupW = document.createElement('div'); groupW.className='field-group'; groupW.style.gridArea='width'; groupW.append(wLabel, width);
+    var groupL = document.createElement('div'); groupL.className='field-group'; groupL.style.gridArea='len'; groupL.append(lLabel, length);
 
     // Order: Length then Width
     card.appendChild(groupL);
     card.appendChild(groupW);
 
-    const hint = document.createElement('div'); hint.className='inline-hint'; hint.textContent=''; card.appendChild(hint);
+    var hint = document.createElement('div'); hint.className='inline-hint'; hint.style.gridArea='hint'; hint.textContent=''; card.appendChild(hint);
 
-    const meta = document.createElement('div'); meta.className='room-meta';
-    const b1 = document.createElement('span'); b1.className='badge neo-inset'; b1.textContent=state.unit;
-    const b2 = document.createElement('span'); b2.className='badge neo-inset'; b2.textContent = (r.length==null || r.width==null) ? 'Linear' : 'Area';
-    const areaBadge = document.createElement('span'); areaBadge.className='badge neo-inset'; areaBadge.textContent = (r.length!=null && r.width!=null)? `${fmt(r.length*r.width,2)} ${state.unit==='ft'?'ft²':'m²'}` : '—';
+    var meta = document.createElement('div'); meta.className='room-meta';
+    var b1 = document.createElement('span'); b1.className='badge neo-inset'; b1.textContent = state.unit === 'ft' ? 'Ft' : 'm';
+    var b2 = document.createElement('span'); b2.className='badge neo-inset'; b2.textContent = (r.length==null || r.width==null) ? 'Linear' : 'Area';
+    var areaBadge = document.createElement('span'); areaBadge.className='badge neo-inset'; areaBadge.textContent = (r.length!=null && r.width!=null)? `${fmt(r.length*r.width,2)} ${state.unit==='ft'?'ft²':'m²'}` : '—';
     meta.append(b1,b2,areaBadge); card.appendChild(meta);
 
+    // Analysis / artifacts section (if available)
+    renderArtifactsSection(card, r.room || `Room ${idx+1}`);
+
     width.addEventListener('input', e => {
-      const v = e.target.value; const nvW = v === '' ? null : clampNonNeg(v);
+      var v = e.target.value; var nvW = v === '' ? null : clampNonNeg(v);
       r.width = nvW == null ? null : round1(nvW);
       areaBadge.textContent = r.width == null || r.length == null ? '—' : `${fmt(r.length * r.width, 2)} ${state.unit === 'ft' ? 'ft²':'m²'}`;
       hint.textContent = ((r.length!=null && r.length<0) || (r.width!=null && r.width<0)) ? 'Enter non-negative numbers.' : '';
       updateTotals(); validateProceed();
     });
-    width.addEventListener('blur', ()=>{ width.value = r.width==null ? '' : fmt1(r.width); });
+    width.addEventListener('blur', ()=>{ width.value = r.width==null ? '' : fmt1(r.width); validateProceed(); });
 
     length.addEventListener('input', e => {
-      const raw = e.target.value; const nvL = raw === '' ? null : clampNonNeg(raw);
-      const normalized = (nvL === 0) ? null : nvL;
+      var raw = e.target.value; var nvL = raw === '' ? null : clampNonNeg(raw);
+      var normalized = (nvL === 0) ? null : nvL;
       r.length = normalized == null ? null : round1(normalized);
       areaBadge.textContent = (r.width == null || r.length == null) ? '—' : `${fmt(r.length * r.width, 2)} ${state.unit === 'ft' ? 'ft²':'m²'}`;
       hint.textContent = ((r.length!=null && r.length<0) || (r.width!=null && r.width<0)) ? 'Enter non-negative numbers.' : '';
       updateTotals(); validateProceed();
     });
-    length.addEventListener('blur', ()=>{ length.value = r.length==null ? '' : fmt1(r.length); });
+    length.addEventListener('blur', ()=>{ length.value = r.length==null ? '' : fmt1(r.length); validateProceed(); });
 
     container.appendChild(card);
   });
   updateTotals();
+  validateProceed();
 }
 
 function loadRoomsFromJSON(json){
   state.rooms = (json || []).map(r => {
-    const Lraw = parseFeetInches(r.length);
-    const Wraw = parseFeetInches(r.width);
-    const L = Lraw == null ? null : round1(Lraw);
-    const W = Wraw == null ? null : round1(Wraw);
+    var Lraw = parseFeetInches(r.length);
+    var Wraw = parseFeetInches(r.width);
+    var L = Lraw == null ? null : round1(Lraw);
+    var W = Wraw == null ? null : round1(Wraw);
     return { room: r.room || '', length: (L === 0 ? null : L), width: W, unit: state.unit };
   });
   renderRooms(); validateProceed(); updateTotals();
 }
 
 function applyServerPayload(payload){
-  const rooms = deriveRooms(payload);
+  var rooms = deriveRooms(payload);
   if (rooms && rooms.length){
     loadRoomsFromJSON(rooms);
     byId('search')?.classList.remove('hidden');
@@ -382,18 +525,63 @@ function applyServerPayload(payload){
   }
 }
 
+// ---- Analysis payload (artifacts & door counts) ----
+function loadArtifactsFromJSON(arr){
+  if(!Array.isArray(arr)) return;
+  state.analysis = {};
+  for(var i=0;i<arr.length;i++){
+    var it = arr[i] || {}; var name = (it.room||'').trim();
+    state.analysis[name] = {
+      doorCount: (Number.isFinite(Number(it.doorCount))? Number(it.doorCount) : 0),
+      artifacts: it.artifacts && typeof it.artifacts==='object' ? JSON.parse(JSON.stringify(it.artifacts)) : {}
+    };
+    // ensure a matching room exists, add if missing
+    if(!state.rooms.some(function(r){return (r.room||'')===name;})){
+      state.rooms.push({ room:name, length:null, width:null, unit:state.unit });
+    }
+  }
+  renderRooms();
+  validateProceed();
+}
+function applyAnalysisPayload(payload){
+  var data = null;
+  // Accept direct arrays
+  if(Array.isArray(payload)) data = payload;
+  // Accept objects that carry arrays in common fields
+  else if (Array.isArray(payload && payload.data)) data = payload.data;
+  else if (Array.isArray(payload && payload.result)) data = payload.result;
+  else if (Array.isArray(payload && payload.output)) data = payload.output;
+  // Accept JSON strings (n8n may send stringified JSON)
+  else if (typeof payload === 'string'){
+    try{ var parsed = JSON.parse(payload); if(Array.isArray(parsed)) data = parsed; }
+    catch(e){ console.warn('applyAnalysisPayload: failed to parse string payload', e, payload); }
+  }
+  // Accept string fields on common wrappers
+  else if (payload && typeof payload.data === 'string'){
+    try{ var parsed2 = JSON.parse(payload.data); if(Array.isArray(parsed2)) data = parsed2; }catch(e){}
+  } else if (payload && typeof payload.result === 'string'){
+    try{ var parsed3 = JSON.parse(payload.result); if(Array.isArray(parsed3)) data = parsed3; }catch(e){}
+  } else if (payload && typeof payload.output === 'string'){
+    try{ var parsed4 = JSON.parse(payload.output); if(Array.isArray(parsed4)) data = parsed4; }catch(e){}
+  }
+
+  if(!data){ toast('Analysis response received but not recognized.', 'danger', 5000); return; }
+  loadArtifactsFromJSON(data);
+  toast('Analysis loaded. You can edit artifacts and door counts now.', 'success');
+}
+
 // Show preview image (no filename/size)
 function showPreview(file){
-  const wrap = byId('preview'); if(!wrap) return; wrap.innerHTML='';
+  var wrap = byId('preview'); if(!wrap) return; wrap.innerHTML='';
   if(!file){ wrap.classList.add('hidden'); return; }
   if(file.type && file.type.startsWith('image/')){
-    const img = new Image(); img.alt='Uploaded floor plan preview';
-    const url = URL.createObjectURL(file);
+    var img = new Image(); img.alt='Uploaded floor plan preview';
+    var url = URL.createObjectURL(file);
     img.onload=()=>{ URL.revokeObjectURL(url); };
     img.src = url; img.style.borderRadius='12px';
     wrap.append(img);
   } else {
-    const note=document.createElement('div'); note.textContent='Preview not available';
+    var note=document.createElement('div'); note.textContent='Preview not available';
     wrap.append(note);
   }
   wrap.classList.remove('hidden');
@@ -403,18 +591,19 @@ function showPreview(file){
 async function uploadToWebhook(file){
   state.sourceName = file?.name || null;
   state.sourceMeta = { size: file?.size || 0, type: file?.type || 'unknown' };
+  state.sourceFile = file || null;
   if (!UPLOAD_WEBHOOK){ toast('No upload webhook configured.', 'danger', 4000); setLoading(false); return; }
-  let u; try { u = new URL(UPLOAD_WEBHOOK); } catch { toast('Invalid webhook URL', 'danger'); setLoading(false); return; }
+  var u; try { u = new URL(UPLOAD_WEBHOOK); } catch { toast('Invalid webhook URL', 'danger'); setLoading(false); return; }
   if (location.protocol === 'https:' && u.protocol === 'http:'){ toast('Blocked: HTTPS page cannot POST to HTTP webhook. Use HTTPS or a proxy.', 'danger', 5000); setLoading(false); return; }
-  const form = new FormData(); form.append('file', file, file?.name || 'upload');
+  var form = new FormData(); form.append('file', file, file?.name || 'upload');
   try{
-    const controller = new AbortController(); const to = setTimeout(()=>controller.abort('timeout'), 30000);
-    const res = await fetch(UPLOAD_WEBHOOK, { method:'POST', body: form, signal: controller.signal });
+    var controller = new AbortController(); var to = setTimeout(()=>controller.abort('timeout'), 30000);
+    var res = await fetch(UPLOAD_WEBHOOK, { method:'POST', body: form, signal: controller.signal });
     clearTimeout(to);
-    let payload = null; const ctype = (res.headers.get('content-type') || '').toLowerCase();
-    if(!res.ok){ const text = await res.text().catch(()=> ''); console.error('Upload failed', res.status, text); toast(`Upload failed: ${res.status}. ${text?.slice(0,120) || ''}`, 'danger', 6000); setLoading(false); return; }
+    var payload = null; var ctype = (res.headers.get('content-type') || '').toLowerCase();
+    if(!res.ok){ var text = await res.text().catch(()=> ''); console.error('Upload failed', res.status, text); toast(`Upload failed: ${res.status}. ${text?.slice(0,120) || ''}`, 'danger', 6000); setLoading(false); return; }
     if (ctype.includes('application/json')){ payload = await res.json().catch(()=>null); }
-    else { const text = await res.text().catch(()=> ''); try{ payload = text ? JSON.parse(text) : null; }catch{} }
+    else { var text2 = await res.text().catch(()=> ''); try{ payload = text2 ? JSON.parse(text2) : null; }catch{} }
     if (payload != null) applyServerPayload(payload); else toast('Upload succeeded but response was empty/non-JSON.', 'info');
   }catch(e){
     console.warn('CORS/network error, retrying with no-cors:', e);
@@ -423,7 +612,46 @@ async function uploadToWebhook(file){
   } finally { setLoading(false); }
 }
 
-function handleFiles(files){ const f = files && files[0]; if(!f) return; showHow(false); showPreview(f); setLoading(true,'Extracting dimensions…'); uploadToWebhook(f); }
+function handleFiles(files){ var f = files && files[0]; if(!f) return; showHow(false); showPreview(f); setLoading(true,'Extracting dimensions…'); uploadToWebhook(f); }
+
+// Build body to send to Proceed webhook (same format as upload response: array of rooms)
+function buildProceedBody(){
+  return state.rooms.map(r=>({
+    room: (r.room||'').trim(),
+    length: r.length==null ? null : +Number(r.length).toFixed(1),
+    width: r.width==null ? null : +Number(r.width).toFixed(1)
+  }));
+}
+// Build multipart form data including JSON rooms and (optionally) the uploaded file
+function buildProceedFormData(){
+  var fd = new FormData();
+  fd.append('rooms', JSON.stringify(buildProceedBody()));
+  fd.append('unit', state.unit);
+  if(state.sourceName) fd.append('sourceName', state.sourceName);
+  if(state.sourceMeta) fd.append('sourceMeta', JSON.stringify(state.sourceMeta));
+  if(state.sourceFile) fd.append('file', state.sourceFile, state.sourceName || state.sourceFile.name || 'upload');
+  return fd;
+}
+
+async function sendProceed(){
+  if(!PROCEED_WEBHOOK){ toast('Proceed webhook not configured.', 'danger', 4000); return; }
+  var u; try{ u=new URL(PROCEED_WEBHOOK);}catch{ toast('Invalid Proceed URL', 'danger'); return; }
+  if (location.protocol==='https:' && u.protocol==='http:') { toast('Blocked: HTTPS page cannot POST to HTTP webhook. Use HTTPS or a proxy.', 'danger', 5000); return; }
+  var formData = buildProceedFormData();
+  setLoading(true,'Sending for analysis…');
+  try{
+    var controller = new AbortController(); var to=setTimeout(()=>controller.abort('timeout'), 30000);
+    var res = await fetch(PROCEED_WEBHOOK, { method:'POST', body: formData, signal: controller.signal });
+    clearTimeout(to);
+    var ctype = (res.headers.get('content-type')||'').toLowerCase();
+    if(!res.ok){ var txt = await res.text().catch(()=> ''); toast(`Proceed failed: ${res.status}. ${txt?.slice(0,140)||''}`, 'danger', 6000); return; }
+    if(ctype.includes('application/json')){ var data = await res.json().catch(()=>null); if(data) applyAnalysisPayload(data); else toast('Sent successfully. (No JSON body returned.)','success'); }
+    else { var text = await res.text().catch(()=> ''); try{ var parsed=text?JSON.parse(text):null; if(parsed) applyAnalysisPayload(parsed); else toast('Sent successfully.','success'); }catch(e){ toast('Sent successfully. (Non-JSON response)', 'success'); } }
+  }catch(err){
+    console.warn('Proceed error', err);
+    try{ await fetch(PROCEED_WEBHOOK, { method:'POST', body: formData, mode:'no-cors' }); toast('Sent (no-cors). Server will receive it, response hidden by CORS.', 'success', 6000);}catch(e){ toast('Network error: could not send Proceed payload.', 'danger', 6000); }
+  }finally{ setLoading(false); }
+}
 
 // Events and dropzone
 byId('addRoomBtn')?.addEventListener('click', ()=>{ showHow(false); state.rooms.push({ room:'', length:null, width:null, unit:state.unit }); renderRooms(); validateProceed(); updateTotals(); });
@@ -431,28 +659,40 @@ byId('sortBtn')?.addEventListener('click', (e)=>{
   state.rooms.sort((a,b)=> state.sortAsc ? (a.room||'').localeCompare(b.room||'') : (b.room||'').localeCompare(a.room||''));
   state.sortAsc=!state.sortAsc; e.currentTarget.textContent = state.sortAsc ? 'Sort A–Z' : 'Sort Z–A'; renderRooms();
 });
-byId('unitSwitch')?.addEventListener('change', (e)=>{
-  const to = e.target.value; if(to===state.unit) return;
+function setUnit(to){
+  if(to===state.unit) return;
   if (to==='m'){
-    state.rooms.forEach(r=>{ if(r.length!=null) r.length=round1(ftToM(r.length)); if(r.width!=null) r.width=round1(ftToM(r.width)); r.unit='m'; });
+    state.rooms.forEach(function(r){ if(r.length!=null) r.length=round1(ftToM(r.length)); if(r.width!=null) r.width=round1(ftToM(r.width)); r.unit='m'; });
   } else {
-    state.rooms.forEach(r=>{ if(r.length!=null) r.length=round1(mToFt(r.length)); if(r.width!=null) r.width=round1(mToFt(r.width)); r.unit='ft'; });
+    state.rooms.forEach(function(r){ if(r.length!=null) r.length=round1(mToFt(r.length)); if(r.width!=null) r.width=round1(mToFt(r.width)); r.unit='ft'; });
   }
-  state.unit=to; renderRooms();
-});
+  state.unit=to; renderRooms(); validateProceed();
+}
+var unitSel=byId('unitSwitch');
+unitSel?.addEventListener('change', function(e){ setUnit(e.target.value); });
+var unitToggleInput=document.getElementById('unitToggleInput');
+if(unitToggleInput){
+  unitToggleInput.checked = (state.unit==='m');
+  unitToggleInput.addEventListener('change', function(){
+    var val=this.checked?'m':'ft';
+    setUnit(val);
+    var sel=byId('unitSwitch'); if(sel) sel.value=val;
+  });
+}
 byId('search')?.addEventListener('input', ()=>{
   clearTimeout(window.__filterT);
   window.__filterT = setTimeout(()=>{
-    const q = byId('search').value?.toLowerCase()||'';
-    const list = q ? state.rooms.filter(r => (r.room||'').toLowerCase().includes(q)) : state.rooms;
-    renderRooms(list);
+    var q = byId('search').value?.toLowerCase()||'';
+    var list = q ? state.rooms.filter(r => (r.room||'').toLowerCase().includes(q)) : state.rooms;
+    renderRooms(list); validateProceed();
   },120);
 });
 byId('resetBtn')?.addEventListener('click', ()=>{ resetApp(); });
+byId('proceedBtn')?.addEventListener('click', ()=>{ sendProceed(); });
 
-const fileInput = byId('fileInput');
+var fileInput = byId('fileInput');
 fileInput?.addEventListener('change', e => handleFiles(e.target.files));
-const dz = byId('dropzone');
+var dz = byId('dropzone');
 if(dz){
   ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('dragover'); }));
   ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); dz.classList.remove('dragover'); }));
@@ -464,7 +704,7 @@ if(dz){
 // --- Minimal developer tests (console only) ---
 showHow(true);
 (function runTests(){
-  const approxEq=(a,b,eps=0.05)=>Math.abs(a-b)<=eps; let pass=0, fail=0; const t=(cond,msg)=>{ if(cond){pass++;}else{fail++; console.warn('Test fail:',msg);} };
+  var approxEq=(a,b,eps=0.05)=>Math.abs(a-b)<=eps; var pass=0, fail=0; var t=(cond,msg)=>{ if(cond){pass++;}else{fail++; console.warn('Test fail:',msg);} };
   t(parseFeetInches("12'6\"")===12.5, "12'6\" -> 12.5");
   t(parseFeetInches("12' 15\"")===13.25, "12' 15\" -> 13.25 (normalize inches)");
   t(parseFeetInches('12')===12, "'12' -> 12");
@@ -473,19 +713,44 @@ showHow(true);
   t(fmt1(12.34)==='12.3', 'fmt1 one decimal');
   t(approxEq(round1(ftToM(10)),3.0), '10 ft ≈ 3.0 m (round1)');
   t(approxEq(round1(mToFt(3)),9.8,0.2), '3 m ≈ 9.8 ft (round1)');
-  const payload1=[{name:'Kitchen', length:3.7, width:3.1, unit:'m'}];
-  state.unit='ft'; const rooms1=deriveRooms(payload1); t(Array.isArray(rooms1)&&rooms1[0].room==='Kitchen', 'deriveRooms name mapping');
+  var payload1=[{name:'Kitchen', length:3.7, width:3.1, unit:'m'}];
+  state.unit='ft'; var rooms1=deriveRooms(payload1); t(Array.isArray(rooms1)&&rooms1[0].room==='Kitchen', 'deriveRooms name mapping');
   // Zero-length normalization should yield null WITHOUT touching UI
-  const zeroLen=[{room:'Utility', length:0, width:4, unit:'ft'}];
-  const rooms2=deriveRooms(zeroLen); t(Array.isArray(rooms2)&&rooms2[0].length===null, 'length 0 -> null');
-  const Ltest = round1(parseFeetInches(zeroLen[0].length));
+  var zeroLen=[{room:'Utility', length:0, width:4, unit:'ft'}];
+  var rooms2=deriveRooms(zeroLen); t(Array.isArray(rooms2)&&rooms2[0].length===null, 'length 0 -> null');
+  var Ltest = round1(parseFeetInches(zeroLen[0].length));
   t(((Ltest===0?null:Ltest)===null), 'loadRoomsFromJSON logic would convert 0 length to null');
   t((byId('rooms')?.children?.length||0)===0, 'UI starts with no rooms rendered');
   t(round1(null)===null, 'round1(null) -> null');
-  const out=deriveRooms([{room:'Balcony', length:null, width:null, unit:'ft'}]);
+  var out=deriveRooms([{room:'Balcony', length:null, width:null, unit:'ft'}]);
   t(Array.isArray(out)&&out[0].width===null&&out[0].length===null, 'deriveRooms keeps nulls (no zeros)');
   console.log(`Tests: ${pass} passed, ${fail} failed`);
 })();
+// --- Enhance the native select (Units) with a custom dropdown ---
+function enhanceSelect(sel){
+  if(!sel) return;
+  var wrap=document.createElement('div'); wrap.className='select-wrap';
+  var display=document.createElement('button'); display.type='button'; display.className='select-display';
+  var label=document.createElement('span'); label.className='select-text'; label.textContent=sel.options[sel.selectedIndex]?.text||'';
+  display.appendChild(label);
+  var menu=document.createElement('div'); menu.className='select-menu neo-card'; menu.setAttribute('role','listbox');
+  Array.from(sel.options).forEach((opt)=>{
+    var item=document.createElement('div'); item.className='select-option'; item.setAttribute('role','option'); item.dataset.value=opt.value; item.textContent=opt.text; if(opt.selected) item.classList.add('selected');
+    item.addEventListener('click',()=>{ Array.from(menu.children).forEach(ch=>ch.classList.remove('selected')); item.classList.add('selected'); sel.value=opt.value; label.textContent=opt.text; sel.dispatchEvent(new Event('change',{bubbles:true})); menu.classList.remove('open'); wrap.classList.remove('open'); display.setAttribute('aria-expanded','false'); });
+    menu.appendChild(item);
+  });
+  sel.classList.add('visually-hidden');
+  var parent=sel.parentNode; parent.insertBefore(wrap, sel); wrap.appendChild(sel); wrap.appendChild(display); wrap.appendChild(menu);
+  function close(){ menu.classList.remove('open'); wrap.classList.remove('open'); display.setAttribute('aria-expanded','false'); }
+  function open(){ menu.classList.add('open'); wrap.classList.add('open'); display.setAttribute('aria-expanded','true'); }
+  display.addEventListener('click',(e)=>{ e.stopPropagation(); if(menu.classList.contains('open')) close(); else open(); });
+  document.addEventListener('click',(e)=>{ if(!wrap.contains(e.target)) close(); });
+  display.addEventListener('keydown',(e)=>{ if(e.key==='Escape') close(); });
+}
+
+// Enhance after initial listeners are wired
+// segmented toggle is used now; keep native select for fallback
+
 </script>
 </body>
 </html>
